@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #f4efeb;
+    color: #141414;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-bebas), Impact, "Arial Narrow", sans-serif;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 0.01em;
+  }
+
+  .font-script {
+    font-family: var(--font-caveat), cursive;
+  }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Hero background animations */
+@keyframes heroRipple {
+  0%   { opacity: 0.6; transform: scale(0.85); }
+  70%  { opacity: 0; transform: scale(1.1); }
+  100% { opacity: 0; transform: scale(1.1); }
+}
+@keyframes heroFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+@keyframes heroPulse {
+  0%, 100% { transform: scaleY(1);   opacity: 0.7; }
+  50%       { transform: scaleY(1.6); opacity: 1; }
+}
+@keyframes heroSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-in { animation: fadeIn 0.35s ease-out forwards; }
+
+.pattern-dots {
+  background-image: radial-gradient(circle, rgba(20,20,20,0.08) 1.5px, transparent 1.5px);
+  background-size: 20px 20px;
+}

@@ -1,0 +1,251 @@
+"use client";
+
+import { useState } from "react";
+import type { MediaType, WorkItem } from "@/data/portfolio";
+
+const mediaTypeConfig: Record<MediaType, { label: string; bgColor: string; icon: string }> = {
+  article:    { label: "Artículo",   bgColor: "#97B2D0", icon: "✍"  },
+  video:      { label: "Video",      bgColor: "#F77C52", icon: "🎬" },
+  audio:      { label: "Audio",      bgColor: "#EC4825", icon: "🎙" },
+  instagram:  { label: "Instagram",  bgColor: "#F49FB2", icon: "📸" },
+  youtube:    { label: "YouTube",    bgColor: "#141414", icon: "▶"  },
+  podcast:    { label: "Podcast",    bgColor: "#F2B84B", icon: "🎧" },
+  soundcloud: { label: "SoundCloud", bgColor: "#FF5500", icon: "☁" },
+};
+
+function Waveform({ color }: { color: string }) {
+  const bars = [3, 5, 8, 4, 7, 9, 5, 3, 6, 8, 4, 7, 5, 9, 6, 3, 8, 5];
+  return (
+    <div className="flex items-end gap-[3px] h-10">
+      {bars.map((h, i) => (
+        <div key={i} className="w-1 rounded-full"
+          style={{ height: `${h * 4}px`, backgroundColor: color, opacity: 0.65 }} />
+      ))}
+    </div>
+  );
+}
+
+function TagList({ tags, color }: { tags?: string[]; color: string }) {
+  if (!tags?.length) return null;
+  return (
+    <div className="flex flex-wrap gap-1">
+      {tags.slice(0, 3).map((tag) => (
+        <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full font-medium"
+          style={{ backgroundColor: `${color}20`, color }}>
+          {tag}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function formatDate(date: string) {
+  return new Date(date).toLocaleDateString("es-AR", {
+    day: "numeric", month: "short", year: "numeric",
+  });
+}
+
+function ArticleCard({ item, accent, hideDate }: { item: WorkItem; accent: string; hideDate?: boolean }) {
+  const Wrapper = item.url && item.url !== "#" ? "a" : "div";
+  const wrapperProps = item.url && item.url !== "#"
+    ? { href: item.url, target: "_blank", rel: "noopener noreferrer" }
+    : {};
+  return (
+    <Wrapper {...wrapperProps} className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5 cursor-pointer">
+      <div className="h-1.5" style={{ backgroundColor: accent }} />
+      <div className="p-6 flex flex-col flex-1">
+        <div className="flex items-center justify-between mb-3">
+          {item.source && (
+            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: accent }}>
+              {item.source}
+            </span>
+          )}
+          {!hideDate && <span className="text-xs text-[#141414]/40 ml-auto">{formatDate(item.date)}</span>}
+        </div>
+        <h3 className="text-[#141414] text-base leading-snug mb-3 font-bold group-hover:opacity-70 transition-opacity"
+          style={{ fontFamily: "var(--font-inter)" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-4 pt-4 border-t border-black/[0.07] flex items-center justify-between gap-2">
+          <TagList tags={item.tags} color={accent} />
+          {item.url && item.url !== "#" && (
+            <span className="text-xs font-bold shrink-0" style={{ color: accent }}>
+              Leer →
+            </span>
+          )}
+        </div>
+      </div>
+    </Wrapper>
+  );
+}
+
+function AudioCard({ item, accent }: { item: WorkItem; accent: string }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      <div className="p-6 pb-5" style={{ backgroundColor: `${accent}12` }}>
+        <div className="flex items-center justify-between mb-4">
+          {item.source && (
+            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: accent }}>
+              {item.source}
+            </span>
+          )}
+          {item.duration && (
+            <span className="text-xs font-mono" style={{ color: `${accent}90` }}>
+              {item.duration}
+            </span>
+          )}
+        </div>
+        <Waveform color={accent} />
+      </div>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
+          style={{ fontFamily: "var(--font-inter)" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-4 flex items-center gap-3">
+          <button onClick={() => setPlaying(!playing)}
+            className="flex items-center gap-2 px-4 py-2 rounded-full text-white text-xs font-bold transition-all hover:scale-105"
+            style={{ backgroundColor: accent }}>
+            {playing ? "⏸ Pausar" : "▶ Escuchar"}
+          </button>
+          <TagList tags={item.tags} color={accent} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VideoCard({ item, accent, hideDate }: { item: WorkItem; accent: string; hideDate?: boolean }) {
+  const [showEmbed, setShowEmbed] = useState(false);
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      {item.embedId && showEmbed ? (
+        <div className="aspect-video">
+          <iframe src={`https://www.youtube.com/embed/${item.embedId}?autoplay=1`}
+            className="w-full h-full" allow="autoplay; encrypted-media" allowFullScreen />
+        </div>
+      ) : (
+        <div className="aspect-video flex items-center justify-center cursor-pointer relative overflow-hidden"
+          style={{ backgroundColor: accent }}
+          onClick={() => item.embedId && setShowEmbed(true)}>
+          <div className="text-center">
+            <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform border border-white/30">
+              <span className="text-white text-lg ml-1">▶</span>
+            </div>
+            {item.duration && (
+              <span className="text-xs text-white/60 font-mono">{item.duration}</span>
+            )}
+          </div>
+        </div>
+      )}
+      <div className="p-5 flex flex-col flex-1">
+        <div className="flex items-center justify-between mb-2">
+          {item.source && (
+            <span className="text-xs font-bold uppercase tracking-wider" style={{ color: accent }}>
+              {item.source}
+            </span>
+          )}
+          {!hideDate && <span className="text-xs text-[#141414]/40 ml-auto">{formatDate(item.date)}</span>}
+        </div>
+        <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
+          style={{ fontFamily: "var(--font-inter)" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <TagList tags={item.tags} color={accent} />
+          {item.url && (
+            <a href={item.url} target="_blank" rel="noopener noreferrer"
+              className="text-xs font-bold shrink-0 transition-opacity hover:opacity-60"
+              style={{ color: accent }}>
+              Ver en YouTube →
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SoundcloudCard({ item, accent }: { item: WorkItem; accent: string }) {
+  const embedUrl = item.url
+    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(item.url)}&color=%23EC4825&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`
+    : null;
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      {embedUrl && (
+        <iframe
+          width="100%"
+          height="120"
+          scrolling="no"
+          frameBorder="no"
+          allow="autoplay"
+          src={embedUrl}
+          className="block"
+          sandbox="allow-scripts allow-same-origin"
+        />
+      )}
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
+          style={{ fontFamily: "var(--font-inter)" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-3"><TagList tags={item.tags} color={accent} /></div>
+      </div>
+    </div>
+  );
+}
+
+function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      <div className="p-5" style={{ backgroundColor: accent }}>
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold"
+            style={{ backgroundColor: "rgba(255,255,255,0.25)", color: "white" }}>
+            J
+          </div>
+          <div>
+            <p className="text-white text-xs font-bold">{item.source}</p>
+            <p className="text-white/50 text-[10px]">{formatDate(item.date)}</p>
+          </div>
+          <span className="ml-auto text-white/70 text-base">
+            {item.mediaType === "instagram" ? "📸" : "▶"}
+          </span>
+        </div>
+        <p className="text-white/90 text-sm leading-snug line-clamp-2">{item.description}</p>
+      </div>
+      <div className="p-5 flex flex-col flex-1">
+        <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
+          style={{ fontFamily: "var(--font-inter)" }}>
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-3"><TagList tags={item.tags} color={accent} /></div>
+      </div>
+    </div>
+  );
+}
+
+export default function MediaCard({ item, accentColor = "#EC4825", hideDate }: { item: WorkItem; accentColor?: string; hideDate?: boolean }) {
+  const config = mediaTypeConfig[item.mediaType];
+  return (
+    <div className="relative h-full">
+      <div className="absolute top-3 right-3 z-10">
+        <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white"
+          style={{ backgroundColor: config.bgColor }}>
+          {config.icon} {config.label}
+        </span>
+      </div>
+      {item.mediaType === "article"   && <ArticleCard item={item} accent={accentColor} hideDate={hideDate} />}
+      {(item.mediaType === "audio" || item.mediaType === "podcast") && <AudioCard item={item} accent={accentColor} />}
+      {(item.mediaType === "video" || item.mediaType === "youtube") && <VideoCard item={item} accent={accentColor} hideDate={hideDate} />}
+      {item.mediaType === "instagram"   && <SocialCard      item={item} accent={accentColor} />}
+      {item.mediaType === "soundcloud"  && <SoundcloudCard  item={item} accent={accentColor} />}
+    </div>
+  );
+}
