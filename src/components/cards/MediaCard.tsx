@@ -201,8 +201,8 @@ function SoundcloudCard({ item, accent }: { item: WorkItem; accent: string }) {
 }
 
 function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
-  return (
-    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+  const inner = (
+    <>
       <div className="p-5" style={{ backgroundColor: accent }}>
         <div className="flex items-center gap-2 mb-3">
           <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold"
@@ -225,13 +225,116 @@ function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
           {item.title}
         </h3>
         <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
-        <div className="mt-3"><TagList tags={item.tags} color={accent} /></div>
+        <div className="mt-3 flex items-center justify-between gap-2">
+          <TagList tags={item.tags} color={accent} />
+          {item.url && (
+            <span className="text-xs font-bold shrink-0" style={{ color: accent }}>
+              Ver →
+            </span>
+          )}
+        </div>
+      </div>
+    </>
+  );
+
+  if (item.url) {
+    return (
+      <a
+        href={item.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5 cursor-pointer"
+      >
+        {inner}
+      </a>
+    );
+  }
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      {inner}
+    </div>
+  );
+}
+
+function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string }) {
+  const [playing, setPlaying] = useState(false);
+  const bigBars = [3,5,8,4,7,9,5,3,6,8,4,7,5,9,6,3,8,5,6,4,7,9,3,5,8,4,6,9,5,7,3,8,4,6,9,5];
+  return (
+    <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/[0.04] flex flex-col md:flex-row">
+      {/* Left: visual */}
+      <div
+        className="md:w-[42%] p-8 flex flex-col justify-between min-h-[200px]"
+        style={{ backgroundColor: `${accent}15` }}
+      >
+        <div>
+          <span
+            className="inline-block text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-5"
+            style={{ backgroundColor: accent, color: "white" }}
+          >
+            ✦ Demo Reel
+          </span>
+          {/* Big waveform */}
+          <div className="flex items-end gap-[3px] h-16">
+            {bigBars.map((h, i) => (
+              <div
+                key={i}
+                className="flex-1 rounded-full"
+                style={{
+                  height: `${h * 6}px`,
+                  backgroundColor: accent,
+                  opacity: playing ? 0.9 : 0.5,
+                  transition: "opacity 0.3s",
+                  animation: playing ? `heroPulse 1.2s ease-in-out infinite` : "none",
+                  animationDelay: `${i * 0.04}s`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="flex items-center gap-4 mt-6">
+          <button
+            onClick={() => setPlaying(!playing)}
+            className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black uppercase tracking-wide transition-all hover:scale-105 shadow-sm"
+            style={{ backgroundColor: accent }}
+          >
+            {playing ? "⏸ Pausar" : "▶ Escuchar demo"}
+          </button>
+          {item.duration && (
+            <span className="text-sm font-mono" style={{ color: `${accent}90` }}>
+              {item.duration}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Right: info */}
+      <div className="md:w-[58%] p-8 flex flex-col justify-center">
+        {item.source && (
+          <p
+            className="text-xs font-black uppercase tracking-[0.2em] mb-3"
+            style={{ color: accent }}
+          >
+            {item.source}
+          </p>
+        )}
+        <h3
+          className="text-[#141414] leading-tight mb-3 font-black"
+          style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(1.6rem, 3vw, 2.4rem)", letterSpacing: "0.02em" }}
+        >
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed mb-6">{item.description}</p>
+        <TagList tags={item.tags} color={accent} />
       </div>
     </div>
   );
 }
 
-export default function MediaCard({ item, accentColor = "#EC4825", hideDate }: { item: WorkItem; accentColor?: string; hideDate?: boolean }) {
+export default function MediaCard({ item, accentColor = "#EC4825", hideDate, featured }: { item: WorkItem; accentColor?: string; hideDate?: boolean; featured?: boolean }) {
+  if (featured) {
+    return <FeaturedAudioCard item={item} accent={accentColor} />;
+  }
+
   const config = mediaTypeConfig[item.mediaType];
   return (
     <div className="relative h-full">

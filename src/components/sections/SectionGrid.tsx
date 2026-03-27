@@ -43,8 +43,7 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
     return () => observer.disconnect();
   }, []);
 
-  const availableTypes = Array.from(new Set(items.map((i) => i.mediaType)));
-  const filtered = activeFilter === "all" ? items : items.filter((i) => i.mediaType === activeFilter);
+  const availableTypes = Array.from(new Set(items.filter((i) => !i.featured).map((i) => i.mediaType)));
 
   if (items.length === 0) {
     return (
@@ -62,8 +61,19 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
     );
   }
 
+  const featuredItems = items.filter((i) => i.featured);
+  const regularItems = items.filter((i) => !i.featured);
+  const filteredRegular = activeFilter === "all" ? regularItems : regularItems.filter((i) => i.mediaType === activeFilter);
+
   return (
     <div>
+      {/* Featured item */}
+      {featuredItems.length > 0 && (
+        <div className="mb-10">
+          <MediaCard item={featuredItems[0]} accentColor={accentColor} featured />
+        </div>
+      )}
+
       {availableTypes.length > 1 && (
         <div className="flex flex-wrap gap-2 mb-8">
           <button
@@ -73,10 +83,10 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
             }`}
             style={activeFilter === "all" ? { backgroundColor: accentColor } : {}}
           >
-            Todos ({items.length})
+            Todos ({regularItems.length})
           </button>
           {availableTypes.map((type) => {
-            const count = items.filter((i) => i.mediaType === type).length;
+            const count = regularItems.filter((i) => i.mediaType === type).length;
             return (
               <button
                 key={type}
@@ -94,7 +104,7 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
       )}
 
       <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filtered.map((item, i) => (
+        {filteredRegular.map((item, i) => (
           <div
             key={item.id}
             style={{
@@ -109,7 +119,7 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
         ))}
       </div>
 
-      {filtered.length === 0 && (
+      {filteredRegular.length === 0 && (
         <div className="text-center py-16 text-[#141414]/40 font-sans text-sm">
           No hay trabajos en esta categoría aún.
         </div>

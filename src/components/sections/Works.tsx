@@ -74,6 +74,7 @@ export default function Works() {
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const navRef = useRef<HTMLDivElement>(null);
   const isFirstRender = useRef(true);
+  const touchStartX = useRef<number | null>(null);
 
   const activeIndex = tabs.findIndex((t) => t.id === activeTab);
   const activeTabData = tabs[activeIndex];
@@ -95,6 +96,13 @@ export default function Works() {
     }
   }, [activeIndex]);
 
+  const handleSwipe = (deltaX: number) => {
+    if (Math.abs(deltaX) < 50) return;
+    const currentIndex = tabs.findIndex((t) => t.id === activeTab);
+    if (deltaX < 0 && currentIndex < tabs.length - 1) setActiveTab(tabs[currentIndex + 1].id);
+    if (deltaX > 0 && currentIndex > 0) setActiveTab(tabs[currentIndex - 1].id);
+  };
+
   // Escucha activación desde el header
   useEffect(() => {
     const handler = (e: Event) => {
@@ -109,14 +117,22 @@ export default function Works() {
   }, []);
 
   return (
-    <section id="trabajos">
+    <section
+      id="trabajos"
+      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        if (touchStartX.current === null) return;
+        handleSwipe(touchStartX.current - e.changedTouches[0].clientX);
+        touchStartX.current = null;
+      }}
+    >
 
       {/* ── Tab bar ── */}
       <div className="sticky top-0 z-40 shadow-md" style={{ backgroundColor: "#141414" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 32px" }}>
+        <div className="px-4 md:px-8" style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div
             ref={navRef}
-            className="relative flex overflow-x-auto justify-center"
+            className="relative flex overflow-x-auto"
             style={{ scrollbarWidth: "none" }}
           >
             {tabs.map((tab, i) => {
@@ -127,7 +143,7 @@ export default function Works() {
                   ref={(el) => { tabRefs.current[i] = el; }}
                   onClick={() => setActiveTab(tab.id)}
                   style={{
-                    padding: "16px 20px",
+                    padding: "14px 14px",
                     whiteSpace: "nowrap",
                     flexShrink: 0,
                     background: "none",
@@ -212,10 +228,10 @@ export default function Works() {
         }}
       >
         <div
+          className="px-4 md:px-8 py-8 md:py-12"
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
-            padding: "48px 32px",
             display: "flex",
             flexWrap: "wrap",
             alignItems: "flex-end",
@@ -269,7 +285,7 @@ export default function Works() {
 
       {/* ── Content grid ── */}
       <div className="pattern-dots" style={{ backgroundColor: "#F4EFEB", minHeight: "60vh" }}>
-        <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "48px 32px" }}>
+        <div className="px-4 md:px-8 py-8 md:py-12" style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div key={activeTab} className="animate-fade-in">
             <SectionGrid
               items={activeTabData.items}

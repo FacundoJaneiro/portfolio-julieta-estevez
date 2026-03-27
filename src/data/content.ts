@@ -77,9 +77,16 @@ export const CONTENT = {
       {
         id: "locucion",
         label: "LOCUCIÓN COMERCIAL",
-        type: "audio" as const,
-        items: [] as WorkItem[],
-        comingSoon: true,
+        type: "link" as const,
+        items: [
+          {
+            id: "siconara-reel",
+            title: "Siconara",
+            description: "Locución comercial para Siconara",
+            link: "https://www.instagram.com/reel/DS5hqqYCcKL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+          },
+        ] as WorkItem[],
+        comingSoon: false,
       },
       {
         id: "produccion",

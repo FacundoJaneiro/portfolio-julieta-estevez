@@ -58,9 +58,8 @@ export default function Hero() {
 
         {/* Flecha curva blanca — lado izquierdo, señala hacia el nombre */}
         <svg
-          className="absolute"
-          style={{ left: "1%", top: "23%" }}
-          width="130" height="120"
+          className="absolute hidden min-[390px]:block w-[90px] h-[83px] lg:w-[130px] lg:h-[120px]"
+          style={{ left: "1%", top: "28%" }}
           viewBox="0 0 130 120"
           fill="none"
         >

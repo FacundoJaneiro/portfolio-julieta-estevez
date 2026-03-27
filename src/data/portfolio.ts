@@ -12,6 +12,7 @@ export interface WorkItem {
   thumbnailUrl?: string;
   duration?: string;
   tags?: string[];
+  featured?: boolean;
 }
 
 // ── COBERTURAS ────────────────────────────────────────────────────────────────
@@ -120,14 +121,26 @@ export const radioItems: WorkItem[] = [
 // ── LOCUCIÓN COMERCIAL ────────────────────────────────────────────────────────
 export const locucionItems: WorkItem[] = [
   {
+    id: "loc-demo",
+    title: "Demo de Locución Comercial",
+    description:
+      "Compilación de trabajos que muestran versatilidad de registro: spots institucionales, narración documental, comerciales y e-learning. Producción de Estudio Sonoro.",
+    mediaType: "audio",
+    date: "2024-01-01",
+    source: "Demo Reel",
+    duration: "3:45",
+    tags: ["demo", "comercial", "institucional", "documental"],
+    featured: true,
+  },
+  {
     id: "loc1",
     title: "Spot institucional — APUBA",
     description:
       "Locución de spot publicitario para campaña de afiliación sindical. Estilo cálido y cercano, producción de Estudio Sonoro.",
-    mediaType: "audio",
+    mediaType: "instagram",
     date: "2024-05-10",
     source: "APUBA",
-    duration: "0:30",
+    url: "https://www.instagram.com/reel/C-aUDbrxKtx/?utm_source=ig_web_copy_link&igsh=NTc4MTIwNjQ2YQ==",
     tags: ["institucional", "spot", "sindicato"],
   },
   {
@@ -143,14 +156,13 @@ export const locucionItems: WorkItem[] = [
   },
   {
     id: "loc3",
-    title: "Demo de locución comercial",
-    description:
-      "Compilado de estilos: institucional, comercial joven, informativo y dramático. Producción propia.",
-    mediaType: "audio",
+    title: "Locución comercial — Siconara",
+    description: "Spot de locución comercial para Siconara.",
+    mediaType: "instagram",
     date: "2024-01-20",
-    source: "SICONARA",
-    duration: "3:15",
-    tags: ["demo", "comercial", "variedad"],
+    source: "Siconara",
+    url: "https://www.instagram.com/reel/DS5hqqYCcKL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
+    tags: ["comercial", "spot", "Siconara"],
   },
 ];
 
