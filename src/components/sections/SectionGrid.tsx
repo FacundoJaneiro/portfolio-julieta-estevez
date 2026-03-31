@@ -48,13 +48,114 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
 
   if (items.length === 0) {
     return (
-      <div className="flex items-center justify-center min-h-[320px]">
-        <div className="text-center">
-          <p className="text-[#141414]/25 mb-2"
-            style={{ fontFamily: "var(--font-bebas)", fontSize: "36px", letterSpacing: "0.05em" }}>
+      <div
+        style={{
+          backgroundColor: "#141414",
+          borderRadius: "16px",
+          overflow: "hidden",
+          position: "relative",
+          minHeight: "320px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          padding: "48px 32px",
+        }}
+      >
+        {/* Texto gigante decorativo de fondo */}
+        <p
+          aria-hidden
+          style={{
+            position: "absolute",
+            fontFamily: "var(--font-bebas)",
+            fontSize: "clamp(5rem, 22vw, 16rem)",
+            letterSpacing: "0.04em",
+            color: accentColor,
+            opacity: 0.06,
+            lineHeight: 1,
+            userSelect: "none",
+            whiteSpace: "nowrap",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        >
+          PRÓXIMAMENTE
+        </p>
+
+        {/* Círculo decorativo */}
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            width: "220px",
+            height: "220px",
+            borderRadius: "50%",
+            border: `1px solid ${accentColor}22`,
+            top: "-60px",
+            right: "-60px",
+          }}
+        />
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            width: "120px",
+            height: "120px",
+            borderRadius: "50%",
+            border: `1px solid ${accentColor}18`,
+            bottom: "-30px",
+            left: "-30px",
+          }}
+        />
+
+        {/* Contenido central */}
+        <div style={{ position: "relative", textAlign: "center" }}>
+          <div
+            style={{
+              display: "inline-block",
+              border: `2px solid ${accentColor}`,
+              borderRadius: "4px",
+              padding: "6px 18px",
+              marginBottom: "20px",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontWeight: 700,
+                fontSize: "10px",
+                letterSpacing: "0.3em",
+                color: accentColor,
+                textTransform: "uppercase",
+              }}
+            >
+              EN CONSTRUCCIÓN
+            </span>
+          </div>
+
+          <p
+            style={{
+              fontFamily: "var(--font-bebas)",
+              fontSize: "clamp(2.8rem, 8vw, 5rem)",
+              letterSpacing: "0.05em",
+              lineHeight: 1,
+              color: "white",
+              marginBottom: "16px",
+            }}
+          >
             PRÓXIMAMENTE
           </p>
-          <p className="font-sans text-xs text-[#141414]/35 max-w-xs leading-relaxed">
+
+          <p
+            style={{
+              fontFamily: "var(--font-inter)",
+              fontSize: "13px",
+              color: "rgba(255,255,255,0.4)",
+              maxWidth: "260px",
+              lineHeight: 1.65,
+              margin: "0 auto",
+            }}
+          >
             El contenido de esta sección estará disponible pronto.
           </p>
         </div>

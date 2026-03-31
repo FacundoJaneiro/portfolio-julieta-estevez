@@ -350,12 +350,23 @@ function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string })
         </div>
         <div className="flex items-center gap-4 mt-6">
           {item.comingSoon ? (
-            <span
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide border-2"
-              style={{ borderColor: accent, color: accent }}
-            >
-              ⏳ Próximamente
-            </span>
+            <div>
+              <p
+                style={{
+                  fontFamily: "var(--font-bebas)",
+                  fontSize: "clamp(2rem, 5vw, 3rem)",
+                  letterSpacing: "0.05em",
+                  lineHeight: 1,
+                  color: accent,
+                  marginBottom: "6px",
+                }}
+              >
+                PRÓXIMAMENTE
+              </p>
+              <p style={{ fontSize: "11px", color: `${accent}80`, fontFamily: "var(--font-inter)", fontWeight: 500 }}>
+                El demo estará disponible pronto
+              </p>
+            </div>
           ) : (
             <button
               onClick={() => setPlaying(!playing)}

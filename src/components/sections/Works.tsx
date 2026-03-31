@@ -10,6 +10,7 @@ import {
   redesItems,
 } from "@/data/portfolio";
 import SectionGrid from "@/components/sections/SectionGrid";
+import ProduccionTimeline from "@/components/sections/ProduccionTimeline";
 
 const tabs = [
   {
@@ -323,11 +324,15 @@ export default function Works() {
       <div className="pattern-dots" style={{ backgroundColor: "#F4EFEB", minHeight: "60vh" }}>
         <div className="px-4 md:px-8 py-8 md:py-12" style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div key={activeTab} className="animate-fade-in">
-            <SectionGrid
-              items={activeTabData.items}
-              accentColor={activeTabData.accent}
-              hideDate={activeTab === "coberturas"}
-            />
+            {activeTab === "produccion" ? (
+              <ProduccionTimeline items={activeTabData.items} />
+            ) : (
+              <SectionGrid
+                items={activeTabData.items}
+                accentColor={activeTabData.accent}
+                hideDate={activeTab === "coberturas"}
+              />
+            )}
           </div>
         </div>
       </div>

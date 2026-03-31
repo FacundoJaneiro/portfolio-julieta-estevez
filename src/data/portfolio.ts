@@ -4,10 +4,13 @@ export interface WorkItem {
   id: string;
   title: string;
   description: string;
+  body?: string;
   mediaType: MediaType;
   date: string;
   source?: string;
   url?: string;
+  secondaryUrl?: string;
+  secondaryUrlLabel?: string;
   embedId?: string;
   thumbnailUrl?: string;
   duration?: string;
@@ -180,48 +183,51 @@ export const locucionItems: WorkItem[] = [
 // ── PRODUCCIÓN PERIODÍSTICA ───────────────────────────────────────────────────
 export const produccionItems: WorkItem[] = [
   {
-    id: "pro1",
-    title: "Móvil en Barrio Chino — IP Noticias",
-    description:
-      "Producción y salida al aire del móvil en el Barrio Chino para el programa 'Mi País'. Coordinación de equipo en locación, contacto con fuentes y conducción del despacho en vivo.",
+    id: "pro-mc",
+    title: "Radio Monte Castro",
+    description: "Conductora y productora de streaming y radio.",
+    body: "Mi recorrido en producción comenzó en Radio Monte Castro, donde además de conducir un programa me desempeñé como productora de streaming y radio. Fue el espacio donde adquirí las herramientas necesarias para manejar la agenda periodística y donde fui construyendo, poco a poco, mi criterio profesional.",
     mediaType: "image",
-    date: "2024-02-10",
-    source: "IP Noticias",
-    thumbnailUrl: "/images/produccion/barrio-chino.jpg",
-    tags: ["móvil", "en vivo", "cultura"],
+    date: "2022-01-01",
+    source: "Radio Monte Castro",
+    thumbnailUrl: "/images/produccion/monte-castro.jpg",
+    tags: ["radio", "streaming", "conducción", "producción"],
   },
   {
-    id: "pro2",
-    title: "Especial Día de la Bandera — ETER",
-    description:
-      "Producción del especial 'Madres de la Patria' emitido en ETER por el Día de la Bandera. Investigación, guión, selección de archivo histórico y coordinación de grabación.",
+    id: "pro-cronica",
+    title: "Crónica TV",
+    description: "Asistente de producción, PNT y coordinación de invitados.",
+    body: "Al poco tiempo me contactaron para ser asistente de producción en Crónica TV, donde tuve la posibilidad de rodearme de grandes profesionales como Chiche Gelblung, a quien tuve el placer de tratar muy de cerca. En este rol me encargué de la PNT (Publicidad No Tradicional) y de gestionarla con las distintas áreas como comercial, control y redacción. También coordiné invitados, facilitando su paso por el canal.",
     mediaType: "image",
-    date: "2024-06-20",
-    source: "ETER",
-    thumbnailUrl: "/images/produccion/eter-bandera.jpg",
-    tags: ["especial", "historia", "ETER"],
+    date: "2023-01-01",
+    source: "Crónica TV",
+    thumbnailUrl: "/images/produccion/cronica-tv.jpg",
+    tags: ["TV", "PNT", "invitados", "producción"],
   },
   {
-    id: "pro3",
-    title: "Cobertura Tren Solidario — IP Noticias",
-    description:
-      "Producción del despacho en vivo desde la estación de Retiro en el marco de las inundaciones en Zárate y Campana. Coordinación con el equipo de 'Mañanas Picantes'.",
+    id: "pro-ip",
+    title: "IP Noticias",
+    description: "Producción bajo presión en un canal de noticias 24 horas.",
+    body: "Cuando llegué a IP Noticias empecé a entender la producción periodística desde otro lado. Aprendí a producir bajo mucha presión y a describir cuestiones sociales sensibles de la manera que se merecen. También logré consolidar una agenda de contactos de actualidad, donde se pueden encontrar desde personajes del espectáculo hasta políticos o científicos.",
     mediaType: "image",
     date: "2024-01-01",
     source: "IP Noticias",
-    thumbnailUrl: "/images/produccion/tren-solidario.jpg",
-    tags: ["en vivo", "solidaridad", "producción"],
+    thumbnailUrl: "/images/produccion/ip-noticias.jpg",
+    tags: ["TV", "noticias", "24 horas", "producción"],
   },
   {
-    id: "pro4",
-    title: "Cobertura Garrahan — IP Noticias",
-    description:
-      "Producción y cobertura de la crisis salarial en el Hospital Garrahan para el programa 'A las 7'. Coordinación de fuentes gremiales, redacción del informe y acompañamiento en el despacho en vivo.",
+    id: "pro-eter",
+    title: "Tesis de carrera — ETER",
+    description: "Producción ejecutiva de un programa de TV y uno de radio.",
+    body: "Para mi etapa de tesis de la carrera de Locución Integral asumí el desafío de producir un programa de radio y otro de televisión. En la materia televisiva decidimos realizar un programa patrio llamado \"De ponchos y banderas\", sobre las prendas textiles que nos envuelven como argentinos. En cuanto a radio, optamos por un magazine llamado \"La bella y la bestia\", donde la perspectiva giraba sobre la diferencia y el balance entre una joven (yo) y un hombre de mediana edad, donde él hablaba de política y yo de la música del under.",
     mediaType: "image",
-    date: "2024-06-12",
-    source: "IP Noticias",
-    thumbnailUrl: "/images/produccion/garrahan.jpg",
-    tags: ["salud", "investigación", "producción"],
+    date: "2024-06-01",
+    source: "ETER",
+    thumbnailUrl: "/images/produccion/eter-proyectos.jpg",
+    url: "#",
+    secondaryUrl: "#",
+    secondaryUrlLabel: "La bella y la bestia",
+    tags: ["TV", "radio", "tesis", "ETER"],
   },
 ];
 
