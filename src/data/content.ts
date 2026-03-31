@@ -85,6 +85,12 @@ export const CONTENT = {
             description: "Locución comercial para Siconara",
             link: "https://www.instagram.com/reel/DS5hqqYCcKL/?utm_source=ig_web_copy_link&igsh=MzRlODBiNWFlZA==",
           },
+          {
+            id: "baires-bien-publico",
+            title: "Buenos Aires Ciudad — Bien Público",
+            description: "Locución para spot de bien público de Buenos Aires Ciudad",
+            link: "https://soundcloud.com/julieta-estevez-40940972/buenos-aires-ciudad-bien-pu-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=44d26b8724974c788c7d4e32f5c92c7c",
+          },
         ] as WorkItem[],
         comingSoon: false,
       },

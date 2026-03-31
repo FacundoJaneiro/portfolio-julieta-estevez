@@ -11,6 +11,7 @@ const mediaTypeConfig: Record<MediaType, { label: string; bgColor: string; icon:
   youtube:    { label: "YouTube",    bgColor: "#141414", icon: "▶"  },
   podcast:    { label: "Podcast",    bgColor: "#F2B84B", icon: "🎧" },
   soundcloud: { label: "SoundCloud", bgColor: "#FF5500", icon: "☁" },
+  image:      { label: "Producción", bgColor: "#F2B84B", icon: "🎞" },
 };
 
 function Waveform({ color }: { color: string }) {
@@ -171,11 +172,13 @@ function VideoCard({ item, accent, hideDate }: { item: WorkItem; accent: string;
 }
 
 function SoundcloudCard({ item, accent }: { item: WorkItem; accent: string }) {
+  const accentHex = accent.replace("#", "%23");
   const embedUrl = item.url
-    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(item.url)}&color=%23EC4825&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`
+    ? `https://w.soundcloud.com/player/?url=${encodeURIComponent(item.url)}&color=${accentHex}&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false`
     : null;
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      <div className="h-1.5" style={{ backgroundColor: accent }} />
       {embedUrl && (
         <iframe
           width="100%"
@@ -189,6 +192,11 @@ function SoundcloudCard({ item, accent }: { item: WorkItem; accent: string }) {
         />
       )}
       <div className="p-5 flex flex-col flex-1">
+        {item.source && (
+          <span className="text-xs font-bold uppercase tracking-wider mb-2 block" style={{ color: accent }}>
+            {item.source}
+          </span>
+        )}
         <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
           style={{ fontFamily: "var(--font-inter)" }}>
           {item.title}
@@ -256,6 +264,55 @@ function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
   );
 }
 
+function ImageCard({ item, accent, hideDate }: { item: WorkItem; accent: string; hideDate?: boolean }) {
+  return (
+    <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
+      {/* Imagen */}
+      <div className="relative aspect-[4/3] overflow-hidden" style={{ backgroundColor: `${accent}20` }}>
+        {item.thumbnailUrl ? (
+          <img
+            src={item.thumbnailUrl}
+            alt={item.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center" style={{ backgroundColor: `${accent}15` }}>
+            <span style={{ fontSize: "48px", opacity: 0.3 }}>🎞</span>
+          </div>
+        )}
+        {/* Gradiente inferior */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-16"
+          style={{ background: `linear-gradient(to top, ${accent}60, transparent)` }}
+        />
+        {!hideDate && (
+          <span className="absolute bottom-3 right-3 text-[10px] font-mono text-white/80">
+            {new Date(item.date).toLocaleDateString("es-AR", { month: "short", year: "numeric" })}
+          </span>
+        )}
+      </div>
+      {/* Info */}
+      <div className="p-5 flex flex-col flex-1">
+        {item.source && (
+          <span className="text-xs font-bold uppercase tracking-wider mb-2 block" style={{ color: accent }}>
+            {item.source}
+          </span>
+        )}
+        <h3
+          className="text-[#141414] text-sm leading-snug mb-2 font-bold"
+          style={{ fontFamily: "var(--font-inter)" }}
+        >
+          {item.title}
+        </h3>
+        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
+        <div className="mt-4 pt-3 border-t border-black/[0.06]">
+          <TagList tags={item.tags} color={accent} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string }) {
   const [playing, setPlaying] = useState(false);
   const bigBars = [3,5,8,4,7,9,5,3,6,8,4,7,5,9,6,3,8,5,6,4,7,9,3,5,8,4,6,9,5,7,3,8,4,6,9,5];
@@ -292,13 +349,22 @@ function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string })
           </div>
         </div>
         <div className="flex items-center gap-4 mt-6">
-          <button
-            onClick={() => setPlaying(!playing)}
-            className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black uppercase tracking-wide transition-all hover:scale-105 shadow-sm"
-            style={{ backgroundColor: accent }}
-          >
-            {playing ? "⏸ Pausar" : "▶ Escuchar demo"}
-          </button>
+          {item.comingSoon ? (
+            <span
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-black uppercase tracking-wide border-2"
+              style={{ borderColor: accent, color: accent }}
+            >
+              ⏳ Próximamente
+            </span>
+          ) : (
+            <button
+              onClick={() => setPlaying(!playing)}
+              className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black uppercase tracking-wide transition-all hover:scale-105 shadow-sm"
+              style={{ backgroundColor: accent }}
+            >
+              {playing ? "⏸ Pausar" : "▶ Escuchar demo"}
+            </button>
+          )}
           {item.duration && (
             <span className="text-sm font-mono" style={{ color: `${accent}90` }}>
               {item.duration}
@@ -344,11 +410,12 @@ export default function MediaCard({ item, accentColor = "#EC4825", hideDate, fea
           {config.icon} {config.label}
         </span>
       </div>
-      {item.mediaType === "article"   && <ArticleCard item={item} accent={accentColor} hideDate={hideDate} />}
+      {item.mediaType === "article"   && <ArticleCard    item={item} accent={accentColor} hideDate={hideDate} />}
       {(item.mediaType === "audio" || item.mediaType === "podcast") && <AudioCard item={item} accent={accentColor} />}
       {(item.mediaType === "video" || item.mediaType === "youtube") && <VideoCard item={item} accent={accentColor} hideDate={hideDate} />}
-      {item.mediaType === "instagram"   && <SocialCard      item={item} accent={accentColor} />}
-      {item.mediaType === "soundcloud"  && <SoundcloudCard  item={item} accent={accentColor} />}
+      {item.mediaType === "instagram"   && <SocialCard     item={item} accent={accentColor} />}
+      {item.mediaType === "soundcloud"  && <SoundcloudCard item={item} accent={accentColor} />}
+      {item.mediaType === "image"       && <ImageCard      item={item} accent={accentColor} hideDate={hideDate} />}
     </div>
   );
 }

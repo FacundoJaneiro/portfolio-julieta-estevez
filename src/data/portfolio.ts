@@ -1,4 +1,4 @@
-export type MediaType = "article" | "video" | "audio" | "instagram" | "youtube" | "podcast" | "soundcloud";
+export type MediaType = "article" | "video" | "audio" | "instagram" | "youtube" | "podcast" | "soundcloud" | "image";
 
 export interface WorkItem {
   id: string;
@@ -13,6 +13,7 @@ export interface WorkItem {
   duration?: string;
   tags?: string[];
   featured?: boolean;
+  comingSoon?: boolean;
 }
 
 // ── COBERTURAS ────────────────────────────────────────────────────────────────
@@ -131,6 +132,7 @@ export const locucionItems: WorkItem[] = [
     duration: "3:45",
     tags: ["demo", "comercial", "institucional", "documental"],
     featured: true,
+    comingSoon: true,
   },
   {
     id: "loc1",
@@ -145,14 +147,23 @@ export const locucionItems: WorkItem[] = [
   },
   {
     id: "loc2",
-    title: "Narración documental — Historia de la UBA",
-    description:
-      "Voz en off para documental de 45 minutos sobre los 200 años de la Universidad de Buenos Aires. Registro formal y emotivo.",
-    mediaType: "audio",
-    date: "2023-09-17",
-    source: "UBA",
-    duration: "45:00",
-    tags: ["documental", "narración", "universidad"],
+    title: "Buenos Aires Ciudad — Bien Público",
+    description: "Locución para spot de bien público de Buenos Aires Ciudad.",
+    mediaType: "soundcloud",
+    date: "2024-01-01",
+    source: "Buenos Aires Ciudad",
+    url: "https://soundcloud.com/julieta-estevez-40940972/buenos-aires-ciudad-bien-pu-1?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=44d26b8724974c788c7d4e32f5c92c7c",
+    tags: ["bien público", "institucional", "Buenos Aires"],
+  },
+  {
+    id: "loc4",
+    title: "Vanish — Aviso Exclusivo",
+    description: "Locución para aviso exclusivo de Vanish.",
+    mediaType: "soundcloud",
+    date: "2024-01-01",
+    source: "Vanish",
+    url: "https://soundcloud.com/julieta-estevez-40940972/vanish-aviso-exclusivo?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing&si=374df3b0b89e4669821e953cdd026aed",
+    tags: ["comercial", "spot", "Vanish"],
   },
   {
     id: "loc3",
@@ -170,27 +181,47 @@ export const locucionItems: WorkItem[] = [
 export const produccionItems: WorkItem[] = [
   {
     id: "pro1",
-    title: "Producción especial: crisis habitacional en CABA",
+    title: "Móvil en Barrio Chino — IP Noticias",
     description:
-      "Investigación de tres meses sobre el mercado inmobiliario porteño. Coordinación de equipo de cinco periodistas y camarógrafos.",
-    mediaType: "video",
-    date: "2024-08-05",
+      "Producción y salida al aire del móvil en el Barrio Chino para el programa 'Mi País'. Coordinación de equipo en locación, contacto con fuentes y conducción del despacho en vivo.",
+    mediaType: "image",
+    date: "2024-02-10",
     source: "IP Noticias",
-    embedId: "dQw4w9WgXcQ",
-    duration: "22:40",
-    tags: ["investigación", "vivienda", "CABA"],
+    thumbnailUrl: "/images/produccion/barrio-chino.jpg",
+    tags: ["móvil", "en vivo", "cultura"],
   },
   {
     id: "pro2",
-    title: "Dirección editorial: especial aniversario Malvinas",
+    title: "Especial Día de la Bandera — ETER",
     description:
-      "Coordinación del especial de 2 horas para el 42.° aniversario de la Guerra de Malvinas. Selección de archivo, entrevistas a veteranos y guión.",
-    mediaType: "video",
-    date: "2024-04-02",
-    source: "Crónica TV",
-    embedId: "dQw4w9WgXcQ",
-    duration: "1:58:00",
-    tags: ["producción", "Malvinas", "especial"],
+      "Producción del especial 'Madres de la Patria' emitido en ETER por el Día de la Bandera. Investigación, guión, selección de archivo histórico y coordinación de grabación.",
+    mediaType: "image",
+    date: "2024-06-20",
+    source: "ETER",
+    thumbnailUrl: "/images/produccion/eter-bandera.jpg",
+    tags: ["especial", "historia", "ETER"],
+  },
+  {
+    id: "pro3",
+    title: "Cobertura Tren Solidario — IP Noticias",
+    description:
+      "Producción del despacho en vivo desde la estación de Retiro en el marco de las inundaciones en Zárate y Campana. Coordinación con el equipo de 'Mañanas Picantes'.",
+    mediaType: "image",
+    date: "2024-01-01",
+    source: "IP Noticias",
+    thumbnailUrl: "/images/produccion/tren-solidario.jpg",
+    tags: ["en vivo", "solidaridad", "producción"],
+  },
+  {
+    id: "pro4",
+    title: "Cobertura Garrahan — IP Noticias",
+    description:
+      "Producción y cobertura de la crisis salarial en el Hospital Garrahan para el programa 'A las 7'. Coordinación de fuentes gremiales, redacción del informe y acompañamiento en el despacho en vivo.",
+    mediaType: "image",
+    date: "2024-06-12",
+    source: "IP Noticias",
+    thumbnailUrl: "/images/produccion/garrahan.jpg",
+    tags: ["salud", "investigación", "producción"],
   },
 ];
 

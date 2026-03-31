@@ -10,6 +10,7 @@ const NAV_LINKS = [
   { label: "LOCUCIÓN", tab: "locucion" },
   { label: "PRODUCCIÓN", tab: "produccion" },
   { label: "REDACCIÓN", tab: "redaccion" },
+  { label: "REDES", tab: "redes" },
 ];
 
 export default function Header() {

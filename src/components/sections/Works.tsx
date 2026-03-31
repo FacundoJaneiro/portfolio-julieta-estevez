@@ -73,8 +73,11 @@ export default function Works() {
   const [underlineStyle, setUnderlineStyle] = useState({ left: 0, width: 0 });
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const navRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const isFirstRender = useRef(true);
-  const touchStartX = useRef<number | null>(null);
+  const activeTabRef = useRef(activeTab);
+
+  useEffect(() => { activeTabRef.current = activeTab; }, [activeTab]);
 
   const activeIndex = tabs.findIndex((t) => t.id === activeTab);
   const activeTabData = tabs[activeIndex];
@@ -96,12 +99,53 @@ export default function Works() {
     }
   }, [activeIndex]);
 
-  const handleSwipe = (deltaX: number) => {
-    if (Math.abs(deltaX) < 50) return;
-    const currentIndex = tabs.findIndex((t) => t.id === activeTab);
-    if (deltaX < 0 && currentIndex < tabs.length - 1) setActiveTab(tabs[currentIndex + 1].id);
-    if (deltaX > 0 && currentIndex > 0) setActiveTab(tabs[currentIndex - 1].id);
-  };
+  // Swipe con native listeners (passive: false) para poder hacer preventDefault
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!tracking) return;
+      const deltaX = Math.abs(e.touches[0].clientX - startX);
+      const deltaY = Math.abs(e.touches[0].clientY - startY);
+      // Si el gesto es claramente horizontal, bloqueamos el scroll vertical
+      if (deltaX > deltaY && deltaX > 10) {
+        e.preventDefault();
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!tracking) return;
+      tracking = false;
+      const deltaX = startX - e.changedTouches[0].clientX;
+      const deltaY = startY - e.changedTouches[0].clientY;
+      if (Math.abs(deltaX) < 50) return;
+      if (Math.abs(deltaY) > Math.abs(deltaX) * 0.6) return;
+      const currentIndex = tabs.findIndex((t) => t.id === activeTabRef.current);
+      if (deltaX < 0 && currentIndex > 0) setActiveTab(tabs[currentIndex - 1].id);
+      if (deltaX > 0 && currentIndex < tabs.length - 1) setActiveTab(tabs[currentIndex + 1].id);
+    };
+
+    section.addEventListener("touchstart", onTouchStart, { passive: true });
+    section.addEventListener("touchmove", onTouchMove, { passive: false });
+    section.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      section.removeEventListener("touchstart", onTouchStart);
+      section.removeEventListener("touchmove", onTouchMove);
+      section.removeEventListener("touchend", onTouchEnd);
+    };
+  }, []);
 
   // Escucha activación desde el header
   useEffect(() => {
@@ -117,15 +161,7 @@ export default function Works() {
   }, []);
 
   return (
-    <section
-      id="trabajos"
-      onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
-      onTouchEnd={(e) => {
-        if (touchStartX.current === null) return;
-        handleSwipe(touchStartX.current - e.changedTouches[0].clientX);
-        touchStartX.current = null;
-      }}
-    >
+    <section ref={sectionRef} id="trabajos">
 
       {/* ── Tab bar ── */}
       <div className="sticky top-0 z-40 shadow-md" style={{ backgroundColor: "#141414" }}>
