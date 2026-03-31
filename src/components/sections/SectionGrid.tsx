@@ -12,6 +12,7 @@ const typeLabels: Record<MediaType, string> = {
   youtube:   "YouTube",
   podcast:    "Podcast",
   soundcloud: "SoundCloud",
+  image:      "Imágenes",
 };
 
 interface Props {
