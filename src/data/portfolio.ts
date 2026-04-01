@@ -13,6 +13,9 @@ export interface WorkItem {
   secondaryUrlLabel?: string;
   embedId?: string;
   thumbnailUrl?: string;
+  thumbnailUrl2?: string;
+  thumbnailPosition?: string;
+  thumbnailUrl2Position?: string;
   duration?: string;
   tags?: string[];
   featured?: boolean;
@@ -191,6 +194,8 @@ export const produccionItems: WorkItem[] = [
     date: "2022-01-01",
     source: "Radio Monte Castro",
     thumbnailUrl: "/images/produccion/monte-castro.jpg",
+    thumbnailUrl2: "/images/produccion/monte-castro-2.jpg",
+    thumbnailPosition: "center 65%",
     tags: ["radio", "streaming", "conducción", "producción"],
   },
   {
@@ -202,6 +207,7 @@ export const produccionItems: WorkItem[] = [
     date: "2023-01-01",
     source: "Crónica TV",
     thumbnailUrl: "/images/produccion/cronica-tv.jpg",
+    thumbnailUrl2: "/images/produccion/cronica-tv-2.jpg",
     tags: ["TV", "PNT", "invitados", "producción"],
   },
   {
@@ -213,6 +219,7 @@ export const produccionItems: WorkItem[] = [
     date: "2024-01-01",
     source: "IP Noticias",
     thumbnailUrl: "/images/produccion/ip-noticias.jpg",
+    thumbnailUrl2: "/images/produccion/ip-noticias-2.jpg",
     tags: ["TV", "noticias", "24 horas", "producción"],
   },
   {
@@ -224,8 +231,9 @@ export const produccionItems: WorkItem[] = [
     date: "2024-06-01",
     source: "ETER",
     thumbnailUrl: "/images/produccion/eter-proyectos.jpg",
-    url: "#",
-    secondaryUrl: "#",
+    thumbnailUrl2: "/images/produccion/eter-proyectos-2.jpg",
+    url: "https://youtu.be/EiAtQs4Xlp4",
+    secondaryUrl: "https://youtu.be/3vFRJexKGWo",
     secondaryUrlLabel: "La bella y la bestia",
     tags: ["TV", "radio", "tesis", "ETER"],
   },
