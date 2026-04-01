@@ -270,28 +270,29 @@ export default function ProduccionTimeline({ items }: { items: WorkItem[] }) {
                     <TagList tags={item.tags} />
                   </div>
 
-                  {/* Fotos o videos */}
+                  {/* Fotos */}
                   <div className="md:pt-2">
-                    {item.id === "pro-eter" ? (
-                      <div className="flex gap-3">
-                        {item.url && item.url !== "#" && (
-                          <VideoThumbLink url={item.url} label="De ponchos y banderas" />
-                        )}
-                        {item.secondaryUrl && item.secondaryUrl !== "#" && (
-                          <VideoThumbLink url={item.secondaryUrl} label={item.secondaryUrlLabel ?? "La bella y la bestia"} />
-                        )}
-                      </div>
-                    ) : (
-                      <PhotoPair
-                        src1={item.thumbnailUrl}
-                        src2={item.thumbnailUrl2}
-                        alt={item.title}
-                        pos1={item.thumbnailPosition}
-                        pos2={item.thumbnailUrl2Position}
-                      />
-                    )}
+                    <PhotoPair
+                      src1={item.thumbnailUrl}
+                      src2={item.thumbnailUrl2}
+                      alt={item.title}
+                      pos1={item.thumbnailPosition}
+                      pos2={item.thumbnailUrl2Position}
+                    />
                   </div>
                 </div>
+
+                {/* Videos tesis — debajo del grid */}
+                {item.id === "pro-eter" && (item.url && item.url !== "#" || item.secondaryUrl && item.secondaryUrl !== "#") && (
+                  <div className="flex gap-3 mt-6">
+                    {item.url && item.url !== "#" && (
+                      <VideoThumbLink url={item.url} label="De ponchos y banderas" />
+                    )}
+                    {item.secondaryUrl && item.secondaryUrl !== "#" && (
+                      <VideoThumbLink url={item.secondaryUrl} label={item.secondaryUrlLabel ?? "La bella y la bestia"} />
+                    )}
+                  </div>
+                )}
               </div>
             </div>
           </div>
