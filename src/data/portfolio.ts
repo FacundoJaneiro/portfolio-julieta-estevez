@@ -115,14 +115,6 @@ export const radioItems: WorkItem[] = [
     url: "https://soundcloud.com/julieta-estevez-40940972/columna-homoge-nica",
     tags: ["columna", "radio"],
   },
-  {
-    id: "rad3",
-    title: "Acá Hay un Pacto",
-    description: "",
-    mediaType: "soundcloud",
-    date: "2024-01-01",
-    tags: ["radio"],
-  },
 ];
 
 // ── LOCUCIÓN COMERCIAL ────────────────────────────────────────────────────────
