@@ -130,14 +130,23 @@ function VideoCard({ item, accent, hideDate }: { item: WorkItem; accent: string;
         </div>
       ) : (
         <div className="aspect-video flex items-center justify-center cursor-pointer relative overflow-hidden"
-          style={{ backgroundColor: accent }}
+          style={{ backgroundColor: "#111" }}
           onClick={() => item.embedId && setShowEmbed(true)}>
-          <div className="text-center">
-            <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center mx-auto mb-2 group-hover:scale-110 transition-transform border border-white/30">
+          {item.embedId && (
+            <img
+              src={`https://img.youtube.com/vi/${item.embedId}/hqdefault.jpg`}
+              alt={item.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          )}
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-2"
+            style={{ backgroundColor: "rgba(0,0,0,0.35)" }}>
+            <div className="w-14 h-14 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform"
+              style={{ backgroundColor: accent }}>
               <span className="text-white text-lg ml-1">▶</span>
             </div>
             {item.duration && (
-              <span className="text-xs text-white/60 font-mono">{item.duration}</span>
+              <span className="text-xs text-white/70 font-mono">{item.duration}</span>
             )}
           </div>
         </div>
