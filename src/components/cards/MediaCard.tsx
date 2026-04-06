@@ -217,60 +217,65 @@ function SoundcloudCard({ item, accent }: { item: WorkItem; accent: string }) {
   );
 }
 
-function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
-  const inner = (
-    <>
-      <div className="p-5" style={{ backgroundColor: accent }}>
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold"
-            style={{ backgroundColor: "rgba(255,255,255,0.25)", color: "white" }}>
-            J
-          </div>
-          <div>
-            <p className="text-white text-xs font-bold">{item.source}</p>
-            <p className="text-white/50 text-[10px]">{formatDate(item.date)}</p>
-          </div>
-          <span className="ml-auto text-white/70 text-base">
-            {item.mediaType === "instagram" ? "📸" : "▶"}
-          </span>
-        </div>
-        <p className="text-white/90 text-sm leading-snug line-clamp-2">{item.description}</p>
-      </div>
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="text-[#141414] text-sm leading-snug mb-2 font-bold"
-          style={{ fontFamily: "var(--font-inter)" }}>
-          {item.title}
-        </h3>
-        <p className="text-sm text-[#141414]/65 leading-relaxed flex-1">{item.description}</p>
-        <div className="mt-3 flex items-center justify-between gap-2">
-          <TagList tags={item.tags} color={accent} />
-          {item.url && (
-            <span className="text-xs font-bold shrink-0" style={{ color: accent }}>
-              Ver →
-            </span>
-          )}
-        </div>
-      </div>
-    </>
-  );
+const sourceLogoMap: Record<string, string> = {
+  "APUBA":              "/images/marcas/APUBA.png",
+  "Siconara":           "/images/marcas/SICONARA.png",
+  "ETER":               "/images/marcas/ETER.png",
+  "Crónica TV":         "/images/marcas/Cronica TV.png",
+  "Radio Monte Castro": "/images/marcas/Radio Monte Castro.png",
+  "Algo más que pogo":  "/images/marcas/Algo más que pogo.png",
+};
 
-  if (item.url) {
-    return (
-      <a
-        href={item.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5 cursor-pointer"
-      >
-        {inner}
-      </a>
-    );
-  }
+function extractReelId(url: string): string | null {
+  const match = url.match(/instagram\.com\/reel\/([A-Za-z0-9_-]+)/);
+  return match ? match[1] : null;
+}
+
+function SocialCard({ item, accent }: { item: WorkItem; accent: string }) {
+  const logo = item.source ? sourceLogoMap[item.source] : null;
+  const reelId = item.url ? extractReelId(item.url) : null;
+  const embedUrl = reelId ? `https://www.instagram.com/reel/${reelId}/embed/` : null;
+
   return (
     <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
-      {inner}
+      {/* Embed reel */}
+      {embedUrl && (
+        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "177%" }}>
+          <iframe
+            src={embedUrl}
+            style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
+            scrolling="no"
+            allowtransparency="true"
+            allowFullScreen
+          />
+        </div>
+      )}
+      {/* Footer de la card */}
+      <div className="p-4 flex items-center gap-3" style={{ backgroundColor: accent }}>
+        {logo ? (
+          <div className="w-8 h-8 rounded-full bg-white overflow-hidden shrink-0">
+            <img src={logo} alt={item.source} className="w-full h-full object-cover" />
+          </div>
+        ) : (
+          <div className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
+            style={{ backgroundColor: "rgba(255,255,255,0.25)", color: "white" }}>
+            {item.source?.[0] ?? "?"}
+          </div>
+        )}
+        <div className="flex-1 min-w-0">
+          <p className="text-white text-xs font-bold truncate">{item.title}</p>
+          <p className="text-white/60 text-[10px]">{item.source}</p>
+        </div>
+        {item.url && (
+          <a href={item.url} target="_blank" rel="noopener noreferrer"
+            className="text-white/80 text-xs font-bold shrink-0 hover:text-white transition-colors">
+            Ver →
+          </a>
+        )}
+      </div>
     </div>
   );
+
 }
 
 function ImageCard({ item, accent, hideDate }: { item: WorkItem; accent: string; hideDate?: boolean }) {
