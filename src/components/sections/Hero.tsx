@@ -194,9 +194,7 @@ export default function Hero() {
                 fontSize: "clamp(18px, 2.2vw, 26px)",
               }}
             >
-              Contando historias desde el micrófono,
-              <br />
-              la calle y el estudio
+              Comunicación con pulso propio
             </p>
           </div>
 
