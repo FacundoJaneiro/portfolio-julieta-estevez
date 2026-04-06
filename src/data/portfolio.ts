@@ -226,7 +226,7 @@ export const produccionItems: WorkItem[] = [
   },
   {
     id: "pro-eter",
-    title: "Tesis de carrera — ETER",
+    title: "Habilitante — ETER",
     description: "Producción ejecutiva de un programa de TV y uno de radio.",
     body: "Para mi etapa de tesis de la carrera de Locución Integral asumí el desafío de producir un programa de radio y otro de televisión. En la materia televisiva decidimos realizar un programa patrio llamado \"De ponchos y banderas\", sobre las prendas textiles que nos envuelven como argentinos. En cuanto a radio, optamos por un magazine llamado \"La bella y la bestia\", donde la perspectiva giraba sobre la diferencia y el balance entre una joven (yo) y un hombre de mediana edad, donde él hablaba de política y yo de la música del under.",
     mediaType: "image",

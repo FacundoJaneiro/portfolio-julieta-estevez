@@ -233,7 +233,7 @@ export default function ProduccionTimeline({ items }: { items: WorkItem[] }) {
                         borderRadius: "999px",
                       }}
                     >
-                      Tesis de carrera
+                      Habilitante
                     </span>
                   )}
                 </div>
