@@ -331,6 +331,7 @@ export default function Works() {
                 items={activeTabData.items}
                 accentColor={activeTabData.accent}
                 hideDate={activeTab === "coberturas"}
+                embedReels={activeTab === "redes"}
               />
             )}
           </div>

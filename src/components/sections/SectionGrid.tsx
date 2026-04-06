@@ -19,9 +19,10 @@ interface Props {
   items: WorkItem[];
   accentColor?: string;
   hideDate?: boolean;
+  embedReels?: boolean;
 }
 
-export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }: Props) {
+export default function SectionGrid({ items, accentColor = "#EC4825", hideDate, embedReels }: Props) {
   const [activeFilter, setActiveFilter] = useState<MediaType | "all">("all");
   const [inView, setInView] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
@@ -216,7 +217,7 @@ export default function SectionGrid({ items, accentColor = "#EC4825", hideDate }
                 : "none",
             }}
           >
-            <MediaCard item={item} accentColor={accentColor} hideDate={hideDate} />
+            <MediaCard item={item} accentColor={accentColor} hideDate={hideDate} embedReels={embedReels} />
           </div>
         ))}
       </div>
