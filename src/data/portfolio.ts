@@ -83,6 +83,16 @@ export const coberturasItems: WorkItem[] = [
     tags: ["inundaciones", "en vivo", "ayuda"],
   },
   {
+    id: "cob7",
+    title: "Tribus urbanas",
+    description: "Cobertura sobre tribus urbanas para ETER.",
+    mediaType: "youtube",
+    date: "2024-01-01",
+    source: "ETER",
+    embedId: "osvQeqWFqwk",
+    tags: ["tribus urbanas", "cultura", "ETER"],
+  },
+  {
     id: "cob6",
     title: "MADRES DE LA PATRIA - María Catalina Echeverría Vidal",
     description: "En el marco del especial por el Día de la Bandera para ETER, recordamos a María Catalina Echevarría por su labor y compromiso con nuestra patria e historia",
