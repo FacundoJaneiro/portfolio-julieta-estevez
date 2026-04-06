@@ -480,7 +480,7 @@ export default function MediaCard({ item, accentColor = "#EC4825", hideDate, fea
     <div className="relative h-full">
       <div className="absolute top-3 right-3 z-10">
         <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full text-white"
-          style={{ backgroundColor: config.bgColor }}>
+          style={{ backgroundColor: accentColor }}>
           {config.icon} {config.label}
         </span>
       </div>
