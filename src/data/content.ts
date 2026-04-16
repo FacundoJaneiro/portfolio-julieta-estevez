@@ -20,7 +20,7 @@ export const CONTENT = {
   nameFirst: "Julieta",
   nameLast: "Estévez",
   rolesString: "LOCUTORA NACIONAL · COMUNICADORA · PERIODISTA",
-  tagline: "Comunicación con pulso propio",
+  tagline: "Para que todos entiendan.",
 
   hero: {
     photo: '/images/hero-photo.jpg' as string | null,

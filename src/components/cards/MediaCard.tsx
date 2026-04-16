@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import type { MediaType, WorkItem } from "@/data/portfolio";
 
 const mediaTypeConfig: Record<MediaType, { label: string; bgColor: string; icon: string }> = {
@@ -244,7 +244,6 @@ function SocialCard({ item, accent, embed }: { item: WorkItem; accent: string; e
             src={embedUrl}
             style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
             scrolling="no"
-            allowTransparency
             allowFullScreen
           />
         </div>
@@ -378,7 +377,19 @@ function ImageCard({ item, accent, hideDate }: { item: WorkItem; accent: string;
 
 function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string }) {
   const [playing, setPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const bigBars = [3,5,8,4,7,9,5,3,6,8,4,7,5,9,6,3,8,5,6,4,7,9,3,5,8,4,6,9,5,7,3,8,4,6,9,5];
+
+  function togglePlay() {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (playing) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setPlaying(!playing);
+  }
   return (
     <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-black/[0.04] flex flex-col md:flex-row">
       {/* Left: visual */}
@@ -391,7 +402,7 @@ function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string })
             className="inline-block text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1 rounded-full mb-5"
             style={{ backgroundColor: accent, color: "white" }}
           >
-            ✦ Demo Reel
+            ✦ Demo
           </span>
           {/* Big waveform */}
           <div className="flex items-end gap-[3px] h-16">
@@ -411,34 +422,17 @@ function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string })
             ))}
           </div>
         </div>
+        {item.url && (
+          <audio ref={audioRef} src={item.url} onEnded={() => setPlaying(false)} />
+        )}
         <div className="flex items-center gap-4 mt-6">
-          {item.comingSoon ? (
-            <div>
-              <p
-                style={{
-                  fontFamily: "var(--font-bebas)",
-                  fontSize: "clamp(2rem, 5vw, 3rem)",
-                  letterSpacing: "0.05em",
-                  lineHeight: 1,
-                  color: accent,
-                  marginBottom: "6px",
-                }}
-              >
-                PRÓXIMAMENTE
-              </p>
-              <p style={{ fontSize: "11px", color: `${accent}80`, fontFamily: "var(--font-inter)", fontWeight: 500 }}>
-                El demo estará disponible pronto
-              </p>
-            </div>
-          ) : (
-            <button
-              onClick={() => setPlaying(!playing)}
-              className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black uppercase tracking-wide transition-all hover:scale-105 shadow-sm"
-              style={{ backgroundColor: accent }}
-            >
-              {playing ? "⏸ Pausar" : "▶ Escuchar demo"}
-            </button>
-          )}
+          <button
+            onClick={togglePlay}
+            className="flex items-center gap-2 px-6 py-3 rounded-full text-white text-sm font-black uppercase tracking-wide transition-all hover:scale-105 shadow-sm"
+            style={{ backgroundColor: accent }}
+          >
+            {playing ? "⏸ Pausar" : "▶ Escuchar demo"}
+          </button>
           {item.duration && (
             <span className="text-sm font-mono" style={{ color: `${accent}90` }}>
               {item.duration}

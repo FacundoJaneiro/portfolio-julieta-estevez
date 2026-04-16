@@ -23,15 +23,27 @@ export default function About() {
               <span style={{ color: "#EC4825" }}>MÍ</span>
             </h2>
 
-            <p
-              className="text-white/80 mb-10 leading-relaxed font-light"
+            <div
+              className="text-white/80 mb-10 leading-relaxed font-light flex flex-col gap-4"
               style={{
                 fontFamily: "var(--font-inter)",
                 fontSize: "clamp(15px, 1.4vw, 17px)",
                 maxWidth: "480px",
               }}
             >
-              Soy Julieta Estévez, locutora nacional y comunicadora integral. Mi enfoque profesional se centra en la conceptualización de contenidos donde la estética, el ritmo y el discurso conviven con coherencia. Entendiendo la comunicación como un proceso activo: no solo ejecuto, sino que analiza el impacto y la identidad narrativa de cada proyecto. Me motiva construir mensajes que conecten de manera genuina, priorizando la claridad y el rigor factual sin perder la agilidad que exigen los medios actuales.
+              <p>Soy Julieta Estévez. Locutora nacional, comunicadora, y alguien que se toma muy en serio lo de no aburrirte.</p>
+              <p>Pasé por móviles en vivo, producción, radio. Y me quedé con una convicción: el mejor relato es el que te hace ver lo que estás escuchando.</p>
+              <p>Me muevo entre la música, la ciencia, la tecnología y la actualidad porque siempre quise saber un poco de todo. Lo que me obsesiona es tomar algo complejo y encontrar el lenguaje que le entre a cualquiera: sin simplificarlo, sin dejar a nadie afuera.</p>
+            </div>
+
+            <p
+              className="text-white/50 mb-8 font-light italic"
+              style={{
+                fontFamily: "var(--font-inter)",
+                fontSize: "clamp(14px, 1.2vw, 16px)",
+              }}
+            >
+              ¿Tenés algo para contar? Hablemos.
             </p>
 
             {/* CTA */}

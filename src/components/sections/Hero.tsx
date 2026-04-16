@@ -97,9 +97,7 @@ export default function Hero() {
 
       {/* Photo — absolute, full height, right side */}
       {CONTENT.hero.photo && (
-        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%]"
-          style={{ zIndex: 10 }}
-        >
+        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%]" style={{ zIndex: 10 }}>
           <Image
             src={CONTENT.hero.photo}
             alt="Julieta Estévez"
@@ -107,9 +105,11 @@ export default function Hero() {
             className="object-cover"
             style={{ objectPosition: "center top" }}
             priority
+            sizes="48vw"
           />
         </div>
       )}
+
 
       {/* ── Stickers flotantes ── */}
       <div className="absolute inset-0 pointer-events-none hidden lg:block" style={{ zIndex: 5 }}>
@@ -154,8 +154,9 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full min-h-[calc(88vh-4rem)] flex items-center">
         {/* Left: Content */}
         <div className="w-full lg:w-1/2 py-10 relative z-10 flex flex-col items-center text-center">
+
           {/* Name */}
-          <div className="mb-3">
+          <div className="mb-3 relative">
             <h1
               className="leading-[0.88]"
               style={{
@@ -194,7 +195,7 @@ export default function Hero() {
                 fontSize: "clamp(18px, 2.2vw, 26px)",
               }}
             >
-              Comunicación con pulso propio
+              {CONTENT.tagline}
             </p>
           </div>
 

@@ -64,7 +64,7 @@ const tabs = [
     shortLabel: "Redes",
     description: "Contenido para redes sociales, gestión de comunidades, UGC para marcas y estrategia digital.",
     items: redesItems,
-    accent: "#9ACBB5",
+    accent: "#52a476",
     fg: "white",
   },
 ];

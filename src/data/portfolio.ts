@@ -131,16 +131,14 @@ export const radioItems: WorkItem[] = [
 export const locucionItems: WorkItem[] = [
   {
     id: "loc-demo",
-    title: "Demo de Locución Comercial",
+    title: "Demo comercial rioplatense",
     description:
-      "Compilación de trabajos que muestran versatilidad de registro: spots institucionales, narración documental, comerciales y e-learning. Producción de Estudio Sonoro.",
+      "Demo de locución comercial rioplatense.",
     mediaType: "audio",
-    date: "2024-01-01",
-    source: "Demo Reel",
-    duration: "3:45",
-    tags: ["demo", "comercial", "institucional", "documental"],
+    date: "2025-01-01",
+    source: "Demo",
+    url: "/audio/Juli Estevez - Rioplatense Comercial.mp3",
     featured: true,
-    comingSoon: true,
   },
   {
     id: "loc1",
