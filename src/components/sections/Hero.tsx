@@ -18,7 +18,7 @@ export default function Hero() {
   return (
     <section
       id="inicio"
-      className="relative pt-16 min-h-[88vh]"
+      className="relative pt-16 min-h-[88vh] md:min-h-[60vh] xl:min-h-[88vh] overflow-hidden"
       style={{ background: "#EC4825" }}
     >
       {/* ── Decorative layer ── */}
@@ -40,7 +40,7 @@ export default function Hero() {
 
         {/* Flecha curva grande — sale desde abajo del contenido, rodea la esquina inf-izq de la foto */}
         <svg
-          className="absolute hidden lg:block"
+          className="absolute hidden xl:block"
           style={{ right: "44%", bottom: "12%" }}
           width="140" height="180"
           viewBox="0 0 140 180"
@@ -97,13 +97,12 @@ export default function Hero() {
 
       {/* Photo — absolute, full height, right side */}
       {CONTENT.hero.photo && (
-        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[48%]" style={{ zIndex: 10 }}>
+        <div className="hidden lg:block absolute right-0 top-0 bottom-0 w-[44%] xl:w-[48%]" style={{ zIndex: 10 }}>
           <Image
             src={CONTENT.hero.photo}
             alt="Julieta Estévez"
             fill
-            className="object-cover"
-            style={{ objectPosition: "center top" }}
+            className="object-contain xl:object-cover object-right-bottom xl:object-top"
             priority
             sizes="48vw"
           />
@@ -111,57 +110,89 @@ export default function Hero() {
       )}
 
 
-      {/* ── Stickers flotantes ── */}
-      <div className="absolute inset-0 pointer-events-none hidden lg:block" style={{ zIndex: 5 }}>
+      {/* Microfono mobile */}
+      <div className="absolute lg:hidden pointer-events-none" style={{ zIndex: 5, left: "2%", top: "55%", transform: "rotate(-50deg)" }}>
+        <div style={{ animation: "heroFloat 6.5s ease-in-out infinite", animationDelay: "0.8s" }}>
+          <Image src="/images/hero/microfono.png" alt="" width={80} height={80} />
+        </div>
+      </div>
 
-        {/* Auriculares */}
-        <div style={{ position: "absolute", left: "67%", top: "6%", transform: "rotate(-6deg)", mixBlendMode: "screen" }}>
+      {/* Megafono mobile */}
+      <div className="absolute lg:hidden pointer-events-none" style={{ zIndex: 5, right: "4%", top: "19%", transform: "scaleX(-1) rotate(-12deg)" }}>
+        <div style={{ animation: "heroFloat 5.5s ease-in-out infinite", animationDelay: "0.5s" }}>
+          <Image src="/images/hero/megafono.png" alt="" width={90} height={90} />
+        </div>
+      </div>
+
+      {/* ── Stickers flotantes ── */}
+      {/* Stickers iPad */}
+      <div className="absolute inset-0 pointer-events-none hidden lg:block xl:hidden" style={{ zIndex: 5 }}>
+        <div style={{ position: "absolute", left: "67%", top: "18%", transform: "rotate(-6deg)", mixBlendMode: "screen" }}>
           <div style={{ animation: "heroFloat 6s ease-in-out infinite" }}>
             <Image src="/images/hero/auriculares.png" alt="" width={130} height={130} style={{ display: "block" }} />
           </div>
         </div>
-
-        {/* Computadora */}
-        <div style={{ position: "absolute", right: "6%", top: "10%", transform: "rotate(10deg)", mixBlendMode: "screen" }}>
+        <div style={{ position: "absolute", right: "6%", top: "22%", transform: "rotate(10deg)", mixBlendMode: "screen" }}>
           <div style={{ animation: "heroFloat 7s ease-in-out infinite", animationDelay: "1s" }}>
             <Image src="/images/hero/computadora.png" alt="" width={130} height={130} style={{ display: "block" }} />
           </div>
         </div>
-
-        {/* Megafono */}
-        <div style={{ position: "absolute", left: "58%", top: "24%", transform: "scaleX(-1) rotate(-12deg)", mixBlendMode: "screen" }}>
+        <div style={{ position: "absolute", left: "55%", top: "27%", transform: "scaleX(-1) rotate(-12deg)", mixBlendMode: "screen" }}>
           <div style={{ animation: "heroFloat 5.5s ease-in-out infinite", animationDelay: "0.5s" }}>
             <Image src="/images/hero/megafono.png" alt="" width={148} height={148} style={{ display: "block" }} />
           </div>
         </div>
-
-        {/* Microfono */}
-        <div style={{ position: "absolute", right: "2%", top: "38%", transform: "rotate(-50deg)", mixBlendMode: "screen" }}>
+        <div style={{ position: "absolute", right: "0%", top: "38%", transform: "rotate(-50deg)", mixBlendMode: "screen" }}>
           <div style={{ animation: "heroFloat 6.5s ease-in-out infinite", animationDelay: "0.8s" }}>
             <Image src="/images/hero/microfono.png" alt="" width={130} height={130} style={{ display: "block" }} />
           </div>
         </div>
-
-        {/* ON AIR */}
         <div style={{ position: "absolute", left: "54%", top: "46%", transform: "rotate(-8deg)", mixBlendMode: "screen" }}>
           <div style={{ animation: "heroFloat 5s ease-in-out infinite", animationDelay: "0.3s" }}>
             <Image src="/images/hero/on-air.png" alt="" width={130} height={130} style={{ display: "block" }} />
           </div>
         </div>
-
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full min-h-[calc(88vh-4rem)] flex items-center">
+      {/* Stickers desktop */}
+      <div className="absolute inset-0 pointer-events-none hidden xl:block" style={{ zIndex: 5 }}>
+        <div style={{ position: "absolute", left: "67%", top: "6%", transform: "rotate(-6deg)", mixBlendMode: "screen" }}>
+          <div style={{ animation: "heroFloat 6s ease-in-out infinite" }}>
+            <Image src="/images/hero/auriculares.png" alt="" width={130} height={130} style={{ display: "block" }} />
+          </div>
+        </div>
+        <div style={{ position: "absolute", right: "6%", top: "10%", transform: "rotate(10deg)", mixBlendMode: "screen" }}>
+          <div style={{ animation: "heroFloat 7s ease-in-out infinite", animationDelay: "1s" }}>
+            <Image src="/images/hero/computadora.png" alt="" width={130} height={130} style={{ display: "block" }} />
+          </div>
+        </div>
+        <div style={{ position: "absolute", left: "58%", top: "24%", transform: "scaleX(-1) rotate(-12deg)", mixBlendMode: "screen" }}>
+          <div style={{ animation: "heroFloat 5.5s ease-in-out infinite", animationDelay: "0.5s" }}>
+            <Image src="/images/hero/megafono.png" alt="" width={148} height={148} style={{ display: "block" }} />
+          </div>
+        </div>
+        <div style={{ position: "absolute", right: "2%", top: "38%", transform: "rotate(-50deg)", mixBlendMode: "screen" }}>
+          <div style={{ animation: "heroFloat 6.5s ease-in-out infinite", animationDelay: "0.8s" }}>
+            <Image src="/images/hero/microfono.png" alt="" width={130} height={130} style={{ display: "block" }} />
+          </div>
+        </div>
+        <div style={{ position: "absolute", left: "54%", top: "46%", transform: "rotate(-8deg)", mixBlendMode: "screen" }}>
+          <div style={{ animation: "heroFloat 5s ease-in-out infinite", animationDelay: "0.3s" }}>
+            <Image src="/images/hero/on-air.png" alt="" width={130} height={130} style={{ display: "block" }} />
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 w-full min-h-[calc(88vh-4rem)] md:min-h-[calc(60vh-4rem)] xl:min-h-[calc(88vh-4rem)] flex items-center">
         {/* Left: Content */}
-        <div className="w-full lg:w-1/2 py-10 relative z-10 flex flex-col items-center text-center">
+        <div className="w-full lg:w-1/2 py-10 lg:py-5 xl:py-10 relative z-10 flex flex-col items-center text-center">
 
           {/* Name */}
-          <div className="mb-3 relative">
+          <div className="mb-3 lg:mb-1 xl:mb-3 relative">
             <h1
-              className="leading-[0.88]"
+              className="leading-[0.88] text-[clamp(80px,13vw,175px)] lg:text-[85px] xl:text-[clamp(80px,13vw,175px)]"
               style={{
                 fontFamily: "var(--font-bebas)",
-                fontSize: "clamp(80px, 13vw, 175px)",
                 letterSpacing: "0.01em",
                 color: "#F2B84B",
               }}
@@ -169,10 +200,9 @@ export default function Hero() {
               JULIETA
             </h1>
             <h1
-              className="leading-[0.88]"
+              className="leading-[0.88] text-[clamp(80px,13vw,175px)] lg:text-[85px] xl:text-[clamp(80px,13vw,175px)]"
               style={{
                 fontFamily: "var(--font-bebas)",
-                fontSize: "clamp(80px, 13vw, 175px)",
                 letterSpacing: "0.01em",
                 color: "#F2B84B",
               }}
@@ -182,12 +212,12 @@ export default function Hero() {
           </div>
 
           {/* Roles */}
-          <p className="text-[11px] font-sans font-black tracking-[0.28em] uppercase text-white mb-7">
+          <p className="text-[11px] font-sans font-black tracking-[0.28em] uppercase text-white mb-7 lg:mb-4 xl:mb-7">
             {CONTENT.rolesString}
           </p>
 
           {/* Tagline */}
-          <div className="mb-10">
+          <div className="mb-10 lg:mb-5 xl:mb-10">
             <p
               className="text-white font-bold leading-snug"
               style={{

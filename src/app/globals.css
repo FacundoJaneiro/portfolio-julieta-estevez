@@ -67,3 +67,10 @@
   background-size: 20px 20px;
 }
 
+/* Nest Hub y pantallas landscape cortas */
+@media (min-width: 768px) and (max-height: 700px) {
+  #inicio {
+    min-height: 88vh !important;
+  }
+}
+
