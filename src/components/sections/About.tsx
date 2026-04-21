@@ -31,20 +31,10 @@ export default function About() {
                 maxWidth: "480px",
               }}
             >
-              <p>Soy Julieta Estévez. Locutora nacional, comunicadora, y alguien que se toma muy en serio lo de no aburrirte.</p>
-              <p>Pasé por móviles en vivo, producción, radio. Y me quedé con una convicción: el mejor relato es el que te hace ver lo que estás escuchando.</p>
-              <p>Me muevo entre la música, la ciencia, la tecnología y la actualidad porque siempre quise saber un poco de todo. Lo que me obsesiona es tomar algo complejo y encontrar el lenguaje que le entre a cualquiera: sin simplificarlo, sin dejar a nadie afuera.</p>
+              {about.bio.split("\n").map((paragraph, i) => (
+                <p key={i}>{paragraph}</p>
+              ))}
             </div>
-
-            <p
-              className="text-white/50 mb-8 font-light italic"
-              style={{
-                fontFamily: "var(--font-inter)",
-                fontSize: "clamp(14px, 1.2vw, 16px)",
-              }}
-            >
-              ¿Tenés algo para contar? Hablemos.
-            </p>
 
             {/* CTA */}
             <a

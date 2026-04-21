@@ -20,7 +20,7 @@ export const CONTENT = {
   nameFirst: "Julieta",
   nameLast: "Estévez",
   rolesString: "LOCUTORA NACIONAL · COMUNICADORA · PERIODISTA",
-  tagline: "Para que todos entiendan.",
+  tagline: "Una voz para cada historia.",
 
   hero: {
     photo: '/images/hero-photo.jpg' as string | null,
@@ -46,7 +46,7 @@ export const CONTENT = {
   about: {
     title: "SOBRE\nMÍ",
     subtitle: "Periodismo con energía,\ncuriosidad y mirada propia.",
-    bio: "Soy Julieta Estévez, Locutora Nacional y Periodista. Cuento historias desde el micrófono, la calle y el estudio con energía, pasión y mirada propia.",
+    bio: "Soy Julieta Estévez, locutora nacional (ETER) y comunicadora con 5 años de experiencia entre radio, televisión y contenido digital. Mi especialidad es traducir información compleja en un lenguaje claro y accesible, sin perder profundidad. Puedo pasar de un spot comercial a una cobertura en vivo o a un podcast institucional, encontrando en cada uno el tono justo.\nTrabajé como asistente de producción en Crónica TV, como cronista de exteriores en IP Noticias y como Community Manager durante tres años en Punto.AR Accesorios. Hago voz en off, conducción, producción periodística y contenido editorial para redes.\n¿Tenés un proyecto, una marca o un podcast que necesita voz? Hablemos.",
     cta: { label: "ESCRIBIME", href: "#contacto" },
     photo: '/images/about-photo.jpg' as string | null,
     social: [
