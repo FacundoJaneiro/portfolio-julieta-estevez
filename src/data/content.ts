@@ -52,7 +52,7 @@ export const CONTENT = {
     social: [
       { platform: "instagram", label: "IG", href: "https://www.instagram.com/juliesteveez/" },
       { platform: "linkedin", label: "LINKEDIN", href: "https://www.linkedin.com/in/julieta-estévez-999268318" },
-      { platform: "email", label: "", href: "mailto:julieta.estevez96@gmail.com" },
+      { platform: "email", label: "", href: "mailto:estevezjulieta04@gmail.com" },
     ],
   },
 
@@ -122,7 +122,7 @@ export const CONTENT = {
     titleLine1: "CON-",
     titleLine2: "TACTO",
     subtitle: "¿Tenés un proyecto? ¿Querés trabajar juntos? Escribime.",
-    email: "julieta.estevez96@gmail.com",
+    email: "estevezjulieta04@gmail.com",
     whatsapp: "1169409408",
     instagram: "https://www.instagram.com/juliesteveez/",
     linkedin: "https://www.linkedin.com/in/julieta-estévez-999268318",
