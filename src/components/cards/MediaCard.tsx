@@ -224,6 +224,7 @@ const sourceLogoMap: Record<string, string> = {
   "Crónica TV":         "/images/marcas/Cronica TV.png",
   "Radio Monte Castro": "/images/marcas/Radio Monte Castro.png",
   "Algo más que pogo":  "/images/marcas/Algo más que pogo.png",
+  "Ácida Revista":      "/images/marcas/Ácida revista.png",
 };
 
 function extractReelId(url: string): string | null {
@@ -231,7 +232,7 @@ function extractReelId(url: string): string | null {
   return match ? match[1] : null;
 }
 
-function SocialCard({ item, accent, embed }: { item: WorkItem; accent: string; embed?: boolean }) {
+function SocialCard({ item, accent, embed, compact }: { item: WorkItem; accent: string; embed?: boolean; compact?: boolean }) {
   const logo = item.source ? sourceLogoMap[item.source] : null;
   const reelId = item.url ? extractReelId(item.url) : null;
   const embedUrl = reelId ? `https://www.instagram.com/reel/${reelId}/embed/` : null;
@@ -239,7 +240,10 @@ function SocialCard({ item, accent, embed }: { item: WorkItem; accent: string; e
   if (embed && embedUrl) {
     return (
       <div className="group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full border border-black/[0.04] hover:-translate-y-0.5">
-        <div className="relative w-full overflow-hidden" style={{ paddingBottom: "177%" }}>
+        <div
+          className="relative w-full overflow-hidden"
+          style={compact ? { height: "clamp(280px, 30vw, 340px)" } : { paddingBottom: "177%" }}
+        >
           <iframe
             src={embedUrl}
             style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
@@ -290,9 +294,12 @@ function SocialCard({ item, accent, embed }: { item: WorkItem; accent: string; e
           )}
           <div>
             <p className="text-white text-xs font-bold">{item.source}</p>
-            <p className="text-white/50 text-[10px]">{formatDate(item.date)}</p>
+            <p className="text-white/60 text-[10px] font-bold uppercase tracking-[0.14em]">Reel · Instagram</p>
           </div>
-          <span className="ml-auto text-white/70 text-base">📸</span>
+          <span className="ml-auto w-8 h-8 rounded-full flex items-center justify-center text-xs"
+            style={{ backgroundColor: "rgba(255,255,255,0.2)", color: "white" }}>
+            ▶
+          </span>
         </div>
         <p className="text-white/90 text-sm leading-snug line-clamp-2">{item.description}</p>
       </div>
@@ -464,7 +471,7 @@ function FeaturedAudioCard({ item, accent }: { item: WorkItem; accent: string })
   );
 }
 
-export default function MediaCard({ item, accentColor = "#EC4825", hideDate, featured, embedReels }: { item: WorkItem; accentColor?: string; hideDate?: boolean; featured?: boolean; embedReels?: boolean }) {
+export default function MediaCard({ item, accentColor = "#EC4825", hideDate, featured, embedReels, compactReels }: { item: WorkItem; accentColor?: string; hideDate?: boolean; featured?: boolean; embedReels?: boolean; compactReels?: boolean }) {
   if (featured) {
     return <FeaturedAudioCard item={item} accent={accentColor} />;
   }
@@ -481,7 +488,7 @@ export default function MediaCard({ item, accentColor = "#EC4825", hideDate, fea
       {item.mediaType === "article"   && <ArticleCard    item={item} accent={accentColor} hideDate={hideDate} />}
       {(item.mediaType === "audio" || item.mediaType === "podcast") && <AudioCard item={item} accent={accentColor} />}
       {(item.mediaType === "video" || item.mediaType === "youtube") && <VideoCard item={item} accent={accentColor} hideDate={hideDate} />}
-      {item.mediaType === "instagram"   && <SocialCard     item={item} accent={accentColor} embed={embedReels} />}
+      {item.mediaType === "instagram"   && <SocialCard     item={item} accent={accentColor} embed={embedReels} compact={compactReels} />}
       {item.mediaType === "soundcloud"  && <SoundcloudCard item={item} accent={accentColor} />}
       {item.mediaType === "image"       && <ImageCard      item={item} accent={accentColor} hideDate={hideDate} />}
     </div>

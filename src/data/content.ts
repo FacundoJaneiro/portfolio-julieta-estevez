@@ -110,7 +110,7 @@ export const CONTENT = {
       },
       {
         id: "redes",
-        label: "REDES Y CONTENIDOS DIGITALES",
+        label: "COMMUNITY MANAGEMENT Y CONTENIDOS",
         type: "image" as const,
         items: [] as WorkItem[],
         comingSoon: true,

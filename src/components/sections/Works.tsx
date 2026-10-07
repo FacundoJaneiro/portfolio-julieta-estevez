@@ -11,6 +11,7 @@ import {
 } from "@/data/portfolio";
 import SectionGrid from "@/components/sections/SectionGrid";
 import ProduccionTimeline from "@/components/sections/ProduccionTimeline";
+import ProjectShowcase from "@/components/sections/ProjectShowcase";
 
 const tabs = [
   {
@@ -60,9 +61,9 @@ const tabs = [
   },
   {
     id: "redes",
-    label: "Redes y Contenidos Digitales",
-    shortLabel: "Redes",
-    description: "Contenido para redes sociales, gestión de comunidades, UGC para marcas y estrategia digital.",
+    label: "Community Management y Contenidos",
+    shortLabel: "CM y contenidos",
+    description: "Comunicación institucional, contenidos editoriales y piezas para redes sociales.",
     items: redesItems,
     accent: "#52a476",
     fg: "white",
@@ -82,6 +83,11 @@ export default function Works() {
 
   const activeIndex = tabs.findIndex((t) => t.id === activeTab);
   const activeTabData = tabs[activeIndex];
+  const isCoverageTab = activeTab === "coberturas";
+  const coverageTvItems = coberturasItems.filter((item) => item.mediaType !== "instagram");
+  const coverageDigitalItems = coberturasItems.filter((item) => item.mediaType === "instagram");
+  const acidaItems = redesItems.filter((item) => item.source === "Ácida Revista");
+  const eterInstitutionalItems = redesItems.filter((item) => item.source === "ETER");
 
   useEffect(() => {
     const el = tabRefs.current[activeIndex];
@@ -324,14 +330,79 @@ export default function Works() {
       <div className="pattern-dots" style={{ backgroundColor: "#F4EFEB", minHeight: "60vh" }}>
         <div className="px-4 md:px-8 py-8 md:py-12" style={{ maxWidth: "1280px", margin: "0 auto" }}>
           <div key={activeTab} className="animate-fade-in">
-            {activeTab === "produccion" ? (
+            {isCoverageTab ? (
+              <div>
+                <div className="mb-8">
+                  <p
+                    className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
+                    style={{ color: activeTabData.accent, fontFamily: "var(--font-inter)" }}
+                  >
+                    Cobertura periodística
+                  </p>
+                  <h3
+                    className="text-[#141414] leading-none uppercase"
+                    style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(2.4rem, 6vw, 4rem)" }}
+                  >
+                    TV y móviles
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#141414]/60">
+                    Salidas al aire, móviles y coberturas para televisión.
+                  </p>
+                </div>
+                <SectionGrid
+                  items={coverageTvItems}
+                  accentColor={activeTabData.accent}
+                  hideDate
+                />
+                <div className="mt-16 mb-8 pt-10 border-t border-[#141414]/15">
+                  <p
+                    className="text-[10px] font-bold uppercase tracking-[0.22em] mb-3"
+                    style={{ color: activeTabData.accent, fontFamily: "var(--font-inter)" }}
+                  >
+                    Formato digital
+                  </p>
+                  <h3
+                    className="text-[#141414] leading-none uppercase"
+                    style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(2.4rem, 6vw, 4rem)" }}
+                  >
+                    Coberturas para redes
+                  </h3>
+                  <p className="mt-3 max-w-xl text-sm leading-relaxed text-[#141414]/60">
+                    Entrevistas, backstage y recorridas pensadas para formatos sociales.
+                  </p>
+                </div>
+                <SectionGrid
+                  items={coverageDigitalItems}
+                  accentColor={activeTabData.accent}
+                  hideDate
+                  embedReels
+                  compactReels
+                />
+              </div>
+            ) : activeTab === "redes" ? (
+              <ProjectShowcase
+                accentColor={activeTabData.accent}
+                projects={[
+                  {
+                    eyebrow: "Proyecto actual",
+                    title: "Revista Ácida",
+                    description: "Community Management, comunicación digital y editorial para una revista cultural. Gestión de redes y comunidad, difusión de eventos, programación y actualización del sitio web, definición de criterios estéticos y redacción de notas.",
+                    items: acidaItems,
+                  },
+                  {
+                    eyebrow: "Prensa institucional",
+                    title: "ETER",
+                    description: "Difusión y cobertura de actividades formativas, invitados y propuestas institucionales.",
+                    items: eterInstitutionalItems,
+                  },
+                ]}
+              />
+            ) : activeTab === "produccion" ? (
               <ProduccionTimeline items={activeTabData.items} />
             ) : (
               <SectionGrid
                 items={activeTabData.items}
                 accentColor={activeTabData.accent}
-                hideDate={activeTab === "coberturas"}
-                embedReels={activeTab === "redes"}
               />
             )}
           </div>
